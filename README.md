@@ -94,7 +94,7 @@ We create the set of names that start with "A"
 
 ```
 Iterables.map(l, p -> p.name)
-         .filter(n -> n.startsWith("A")
+         .filter(n -> n.startsWith("A"))
          .asSet();
 ```
 
