@@ -78,14 +78,20 @@ List<Person> l;
 We can create a name indexed map using directly
 
 ```
-Iterables.asMap(l, p -> p.name, p);
+Iterables.asMap(l, p -> p.name, p -> p);
 ```
 
 or using fluent style
 
 ```
 Iterables.it(l)
-         .asMap(p -> p.name, p);
+         .asMap(p -> p.name, p -> p);
+```
+
+or using a specialized method
+
+```
+Iterables.asValueMap(l, p -> p.name);
 ```
 
 ### Filter 
