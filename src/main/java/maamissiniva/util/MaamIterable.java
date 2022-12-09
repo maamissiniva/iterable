@@ -42,7 +42,7 @@ public interface MaamIterable<A> extends Iterable<A> {
         return Iterables.surround(left, between, right, this);
     }
 
-    default <B> MaamIterable<T2<A,B>> zip(MaamIterable<B> i) {
+    default <B> MaamIterable<T2<A,B>> zip(Iterable<B> i) {
         return Iterables.zip(this, i);
     }
 
