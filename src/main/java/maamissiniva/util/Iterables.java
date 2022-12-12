@@ -30,6 +30,7 @@ import maamissiniva.util.iterable.RepeatingIterable;
 import maamissiniva.util.iterable.RepeatingSupplierIterable;
 import maamissiniva.util.iterable.SingletonIterable;
 import maamissiniva.util.iterable.TakingIterable;
+import maamissiniva.util.iterable.TakingWhileIterable;
 import maamissiniva.util.iterable.UniqueIterable;
 import maamissiniva.util.iterable.ZippingIterable;
 
@@ -215,6 +216,10 @@ public class Iterables {
         if (i == null)
             return empty();
         return new FlatteningIterable<>(i,f);
+    }
+
+    public static <A,B,C> MaamIterable<C> flatMap(Iterable<A> i, Function<A, ? extends Iterable<B>> f, Function<B, ? extends Iterable<C>> g) {
+        return flatMap(i, f).flatMap(g);
     }
 
     public static <A> MaamIterable<A> flatten(Iterable<? extends Iterable<A>> i) {
@@ -726,6 +731,10 @@ public class Iterables {
     
     public static MaamIterable<Long> rangeL(long from, long to) {
         return new LongRangeIterable(from, to, 1L);
+    }
+    
+    public static <A> MaamIterable<A> takeWhile(Iterable<A> i, Predicate<A> p) {
+        return new TakingWhileIterable<>(i, p);
     }
     
 }

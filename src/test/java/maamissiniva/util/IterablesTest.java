@@ -29,4 +29,11 @@ public class IterablesTest {
         assertEquals(r0, r2);
     }
 
+    @Test
+    public void testTakeWhile() {
+        List<Integer> as = Iterables.range(0).takeWhile(x -> x <= 2).asList();
+        List<Integer> bs = Iterables.range(0, 2).asList();
+        assertEquals(as, bs);
+    }
+    
 }

@@ -170,4 +170,8 @@ public interface MaamIterable<A> extends Iterable<A> {
         return Iterables.uniq(this, hasher, equatabler);
     }
 
+    default MaamIterable<A> takeWhile(Predicate<A> p) {
+        return Iterables.takeWhile(this, p);
+    }
+    
 }
