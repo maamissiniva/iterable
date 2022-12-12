@@ -1,5 +1,9 @@
 # Iterable
 
+## Dependency
+
+[maven central](https://central.sonatype.dev/artifact/io.github.maamissiniva/maamissiniva-iterable/0.1.1)
+
 ## WARNING
 
 This package is an experiment with iterables that I find useful. 

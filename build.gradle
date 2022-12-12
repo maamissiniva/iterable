@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'io.github.maamissiniva'
-archivesBaseName = 'iterable'
+archivesBaseName = 'maamissiniva-iterable'
 
 eclipse.project.name = 'external-maamissiniva-iterable'
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(8))
@@ -21,7 +21,7 @@ repositories {
     mavenCentral()
 }
 
-version = '0.1.1-SNAPSHOT'
+version = '0.1.1'
 
 jar {
     manifest {
@@ -44,6 +44,7 @@ publishing {
                 name = 'Iterable'
                 description = '.'
                 url = 'https://github.com/maamissiniva/iterable'
+                artifactId = archivesBaseName
                 from components.java
                 licenses {
                     license {
