@@ -5,16 +5,18 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class TakingWhileIterator<A> implements Iterator<A> {
+public class TakingUntilIterator<A> implements Iterator<A> {
 
     private Predicate<A> p;
     private Iterator<A> i;
     private Optional<A> next;
+    private boolean done;
     
-    public TakingWhileIterator(Iterator<A> i, Predicate<A> p) {
+    public TakingUntilIterator(Iterator<A> i, Predicate<A> p) {
         this.i    = i;
         this.p    = p;
         this.next = null;
+        this.done = false;
     }
 
     @Override
@@ -36,14 +38,17 @@ public class TakingWhileIterator<A> implements Iterator<A> {
     }
 
     private void computeNext() {
-        if (! i.hasNext()) {
+        if (done || ! i.hasNext()) {
             next = Optional.empty();
             return;
         }
         A a = i.next();
-        next = p.test(a)
-                ? Optional.of(a)
-                : Optional.empty();
+        if (p.test(a)) {
+            next = Optional.of(a);
+            done = true;
+        } else {
+            next = Optional.of(a);
+        }
     }
     
 }

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiFunction;
@@ -22,14 +23,15 @@ import maamissiniva.util.iterable.DroppingIterable;
 import maamissiniva.util.iterable.EmptyIterator;
 import maamissiniva.util.iterable.FilteringIterable;
 import maamissiniva.util.iterable.FlatteningIterable;
+import maamissiniva.util.iterable.IntRangeIterable;
 import maamissiniva.util.iterable.IntercalatingIterable;
 import maamissiniva.util.iterable.LongRangeIterable;
 import maamissiniva.util.iterable.MappingIterable;
-import maamissiniva.util.iterable.IntRangeIterable;
 import maamissiniva.util.iterable.RepeatingIterable;
 import maamissiniva.util.iterable.RepeatingSupplierIterable;
 import maamissiniva.util.iterable.SingletonIterable;
 import maamissiniva.util.iterable.TakingIterable;
+import maamissiniva.util.iterable.TakingUntilIterable;
 import maamissiniva.util.iterable.TakingWhileIterable;
 import maamissiniva.util.iterable.UniqueIterable;
 import maamissiniva.util.iterable.ZippingIterable;
@@ -320,6 +322,15 @@ public class Iterables {
         return false;
     }
 
+    public static <A> boolean containsObject(Iterable<A> i, A a) {
+        if (i == null)
+            return false;
+        for (A o : i)
+            if (Objects.equals(a, o))
+                return true;
+        return false;        
+    }
+    
     /**
      * Returns the first element for which the predicate returns true.
      * @param <A> element type
@@ -724,7 +735,19 @@ public class Iterables {
     public static <A> MaamIterable<A> uniq(Iterable<A> i, Hasher<A> h, Equatabler<A> e) {
         return new UniqueIterable<>(i, h, e);
     }
-
+    
+    /**
+     * Uniq by projection.
+     * @param <A> element type
+     * @param <B> key type
+     * @param i   elements
+     * @param f   element to key mapping
+     * @return    iterable of uniq elements considering their keys
+     */
+    public static <A,B> MaamIterable<A> uniqP(Iterable<A> i, Function<A,B> f) {
+        return uniq(i, o -> f.apply(o).hashCode(), (a,b) -> f.apply(a).equals(f.apply(b)));
+    }
+    
     public static MaamIterable<Long> rangeL(long from) {
         return rangeL(from, Long.MAX_VALUE);
     }
@@ -735,6 +758,17 @@ public class Iterables {
     
     public static <A> MaamIterable<A> takeWhile(Iterable<A> i, Predicate<A> p) {
         return new TakingWhileIterable<>(i, p);
+    }
+    
+    public static <A> boolean all(Iterable<A> i, Predicate<A> p) {
+        for (A a : i)
+            if (! p.test(a))
+                return false;
+        return true;
+    }
+
+    public static <A> MaamIterable<A> takeUntil(Iterable<A> i, Predicate<A> p) {
+        return new TakingUntilIterable<>(i, p);
     }
     
 }

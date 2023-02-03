@@ -86,7 +86,9 @@ public interface MaamIterable<A> extends Iterable<A> {
     default boolean contains(Predicate<A> p) {
         return Iterables.contains(this, p);
     }
-
+    default boolean containsObject(A a) {
+        return Iterables.containsObject(this, a);
+    }
     default A first(Predicate<A> p) {
         return Iterables.first(this, p);
     }
@@ -166,12 +168,32 @@ public interface MaamIterable<A> extends Iterable<A> {
         return Iterables.asValueMap(this, kf);
     }
 
-    default MaamIterable<A> uniqH(Hasher<A> hasher, Equatabler<A> equatabler) {
+    default MaamIterable<A> uniq(Hasher<A> hasher, Equatabler<A> equatabler) {
         return Iterables.uniq(this, hasher, equatabler);
+    }
+    
+    default MaamIterable<A> uniqH() {
+        return Iterables.uniqH(this);
+    }
+    
+    default <B> MaamIterable<A> uniqP(Function<A,B> f) {
+        return Iterables.uniqP(this, f);
     }
 
     default MaamIterable<A> takeWhile(Predicate<A> p) {
         return Iterables.takeWhile(this, p);
+    }
+    
+    default MaamIterable<A> takeUntil(Predicate<A> p) {
+        return Iterables.takeUntil(this, p);
+    }
+
+    default <B> MaamIterable<A> concatMap(Iterable<B> i, Function<B,A> f) {
+        return concat(Iterables.map(i, f));
+    }
+
+    default <B> MaamIterable<A> concatFlatMap(Iterable<B> i, Function<B,? extends Iterable<A>> f) {
+        return concat(Iterables.flatMap(i, f));
     }
     
 }

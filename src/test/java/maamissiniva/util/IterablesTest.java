@@ -31,9 +31,17 @@ public class IterablesTest {
 
     @Test
     public void testTakeWhile() {
-        List<Integer> as = Iterables.range(0).takeWhile(x -> x <= 2).asList();
-        List<Integer> bs = Iterables.range(0, 2).asList();
+        List<Integer> as = Iterables.range(0, 2).asList();
+        List<Integer> bs = Iterables.range(0).takeWhile(x -> x <= 2).asList();
         assertEquals(as, bs);
     }
+    
+    @Test
+    public void testTakeUntil() {
+        List<Integer> as = Iterables.range(0, 2).asList();
+        List<Integer> bs = Iterables.range(0).takeUntil(x -> x >= 2).asList();
+        assertEquals(as, bs);
+    }
+   
     
 }
