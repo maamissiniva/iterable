@@ -13,7 +13,7 @@ eclipse.project.name = 'external-maamissiniva-iterable'
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(8))
 
 dependencies {
-    implementation 'io.github.maamissiniva:maamissiniva-consumer-of-consumer:0.1.1'
+    implementation 'io.github.maamissiniva:maamissiniva-consumer-of-consumer:0.1.+'
     testImplementation 'junit:junit:4.12'
 }
 
@@ -21,7 +21,7 @@ repositories {
     mavenCentral()
 }
 
-version = '0.1.3'
+version = '0.1.4'
 
 jar {
     manifest {
