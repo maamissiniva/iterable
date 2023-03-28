@@ -22,9 +22,10 @@ import maamissiniva.function.coc.T2;
 import maamissiniva.util.iterable.DroppingIterable;
 import maamissiniva.util.iterable.EmptyIterator;
 import maamissiniva.util.iterable.FilteringIterable;
-import maamissiniva.util.iterable.FlatteningIterable;
+import maamissiniva.util.iterable.FlatMappingIterable;
 import maamissiniva.util.iterable.IntRangeIterable;
 import maamissiniva.util.iterable.IntercalatingIterable;
+import maamissiniva.util.iterable.IteratorPairIterator;
 import maamissiniva.util.iterable.LongRangeIterable;
 import maamissiniva.util.iterable.MappingIterable;
 import maamissiniva.util.iterable.RepeatingIterable;
@@ -170,6 +171,10 @@ public class Iterables {
         return flatMap(Arrays.asList(is), x -> x);
     }
 
+    public static <A> MaamIterable<A> concat(Iterable<A> a, Iterable<A> b) {
+        return () -> new IteratorPairIterator<>(a.iterator(), b.iterator());
+    }
+    
     public static <A,B> MaamIterable<T2<A,B>> zip(Iterable<A> i, Iterable<B> j) {
         return new ZippingIterable<>(i, j);
     }
@@ -217,7 +222,7 @@ public class Iterables {
     public static <A,B> MaamIterable<B> flatMap(Iterable<A> i, Function<A, ? extends Iterable<B>> f) {
         if (i == null)
             return empty();
-        return new FlatteningIterable<>(i,f);
+        return new FlatMappingIterable<>(i,f);
     }
 
     public static <A,B,C> MaamIterable<C> flatMap(Iterable<A> i, Function<A, ? extends Iterable<B>> f, Function<B, ? extends Iterable<C>> g) {

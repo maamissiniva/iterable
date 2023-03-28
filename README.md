@@ -12,7 +12,7 @@ do things better than this code.
 
 You may experience performance problems and errors of various kinds.
 
-## What is it ?
+## Description
 
 This library provides some functions and utilities that implement
 of a number of commonly used functional programming functions. 

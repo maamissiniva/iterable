@@ -5,7 +5,13 @@ import java.util.function.Function;
 
 import maamissiniva.util.Iterables;
 
-public class FlatteningIterator<A,B> implements Iterator<B> { 
+/**
+ * Flat map iterator.
+ *
+ * @param <A> source element type
+ * @param <B> target element type
+ */
+public class FlatMappingIterator<A,B> implements Iterator<B> { 
 
     private Iterator<A> ia;
 
@@ -13,7 +19,7 @@ public class FlatteningIterator<A,B> implements Iterator<B> {
 
     private Iterator<B> ib;
 
-    public FlatteningIterator(Iterator<A> ia, Function<A, ? extends Iterable<B>> f) {
+    public FlatMappingIterator(Iterator<A> ia, Function<A, ? extends Iterable<B>> f) {
         this.ia = ia;
         this.f  = f;
         ib = Iterables.emptyIterator();
